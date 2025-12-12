@@ -3,7 +3,7 @@
  * Handles base path for GitHub Pages deployment
  */
 export const getImagePath = (path: string): string => {
-    const basePath = process.env.NODE_ENV === 'production' ? '/theXcollective' : '';
+    const basePath = process.env.NODE_ENV === 'production' ? '/thexcollectivebeta' : '';
 
     // If path starts with '/', prepend basePath
     if (path.startsWith('/')) {
