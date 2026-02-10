@@ -95,7 +95,44 @@ export const useStyles = makeStyles()((theme) => ({
             borderRadius: '2.5rem',
         }
     },
-    // ...
+    blurCircle: {
+        position: 'absolute',
+        top: '-2rem',
+        right: '-2rem',
+        width: '12rem',
+        height: '12rem',
+        borderRadius: '50%',
+        filter: 'blur(40px)',
+        zIndex: 0,
+        transition: 'background-color 0.5s',
+    },
+    cardHeader: {
+        position: 'relative',
+        zIndex: 10,
+        marginBottom: theme.spacing(4),
+    },
+    badge: {
+        display: 'inline-block',
+        padding: '0.25rem 0.75rem',
+        borderRadius: '9999px',
+        fontSize: '0.75rem',
+        fontWeight: 700,
+        marginBottom: theme.spacing(2),
+        textTransform: 'uppercase',
+        letterSpacing: '0.05em',
+    },
+    cardTitle: {
+        fontSize: '3rem',
+        fontFamily: theme.typography.h1.fontFamily,
+        fontWeight: 700,
+        lineHeight: 1,
+        marginBottom: theme.spacing(1),
+    },
+    cardSubtitle: {
+        fontSize: '1rem',
+        fontWeight: 500,
+        color: theme.palette.text.secondary,
+    },
     list: {
         margin: 0,
         padding: 0,

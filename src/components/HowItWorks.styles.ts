@@ -55,11 +55,13 @@ export const useStyles = makeStyles()((theme) => ({
     // Grid/Scroll Container
     scrollContainer: {
         display: 'flex',
+        flexWrap: 'nowrap',
         gap: theme.spacing(2),
         overflowX: 'auto',
         scrollSnapType: 'x mandatory',
         paddingBottom: theme.spacing(4),
         marginLeft: theme.spacing(-2),
+        marginRight: theme.spacing(-2),
         paddingLeft: theme.spacing(2),
         paddingRight: theme.spacing(2),
         scrollbarWidth: 'none',
@@ -67,28 +69,26 @@ export const useStyles = makeStyles()((theme) => ({
             display: 'none',
         },
         [theme.breakpoints.up('md')]: {
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
             gap: theme.spacing(3),
-            overflow: 'visible',
-            scrollSnapType: 'none',
             paddingBottom: 0,
-            margin: 0,
-            padding: 0,
-            justifyContent: 'center',
+            marginLeft: theme.spacing(-4),
+            marginRight: theme.spacing(-4),
+            paddingLeft: theme.spacing(4),
+            paddingRight: theme.spacing(4),
         },
         [theme.breakpoints.up('lg')]: {
-            gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
             gap: theme.spacing(4),
+            marginLeft: '-40px',
+            marginRight: '-40px',
+            paddingLeft: '40px',
+            paddingRight: '40px',
         }
     },
     cardWrapper: {
         display: 'block',
         minWidth: '400px',
-        scrollSnapAlign: 'center',
-        [theme.breakpoints.up('md')]: {
-            minWidth: 0,
-        }
+        flexShrink: 0,
+        scrollSnapAlign: 'start',
     },
 
     cardInner: {
