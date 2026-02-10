@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import "./globals.css";
+// import "./globals.css"; // Commented out for MUI migration
+import ThemeRegistry from "@/theme/ThemeRegistry";
 import { ModalProvider } from "@/context/ModalContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -19,14 +20,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="font-sans antialiased selection:bg-[#EBE563] selection:text-black">
-        <ModalProvider>
-          <Navbar />
-          {children}
-          <Footer />
-          <JoinModal />
-          <ManifestoModal />
-        </ModalProvider>
+      <body className="antialiased selection:bg-[#EBE563] selection:text-black">
+        <ThemeRegistry>
+          <ModalProvider>
+            <Navbar />
+            {children}
+            <Footer />
+            <JoinModal />
+            <ManifestoModal />
+          </ModalProvider>
+        </ThemeRegistry>
       </body>
     </html>
   );

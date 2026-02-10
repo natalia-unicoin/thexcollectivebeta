@@ -3,8 +3,10 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { getImagePath } from '@/utils/image';
+import { useStyles } from './HowItWorks.styles';
 
 const HowItWorks = () => {
+    const { classes } = useStyles();
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const [activeIndex, setActiveIndex] = useState(0);
     const scrollContainerRef = React.useRef<HTMLDivElement>(null);
@@ -30,6 +32,13 @@ const HowItWorks = () => {
             description: "Launch projects, contribute to the ecosystem, and earn tokens for your impact.",
             image: getImagePath("assets/hiw-new-3.jpg?v=3"),
             color: "#BEE3EE" // Light Blue
+        },
+        {
+            id: "04",
+            title: "Govern",
+            description: "Participate in the DAO. Shape the future of the collective through strategic decisions and governance.",
+            image: getImagePath("assets/hiw-new-2.jpg"),
+            color: "#EBE563" // Yellow
         }
     ];
 
@@ -43,57 +52,60 @@ const HowItWorks = () => {
     };
 
     return (
-        <section id="how-it-works" className="min-h-screen flex items-center py-12 bg-white text-black overflow-hidden">
-            <div className="container mx-auto px-4 md:px-8">
+        <section id="how-it-works" className={classes.section}>
+            <div className={classes.container}>
                 <motion.h2
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8 }}
-                    className="text-4xl md:text-6xl lg:text-7xl font-display font-bold tracking-tighter mb-12 text-center"
+                    className={classes.title}
                 >
-                    How It <span className="font-hand text-5xl md:text-7xl lg:text-9xl text-[#2992A3]">Works.</span>
+                    How It <span className={classes.highlight}>Works.</span>
                 </motion.h2>
 
                 {/* Responsive Layout: Horizontal Scroll on Mobile, Grid on Desktop */}
                 <div
                     ref={scrollContainerRef}
                     onScroll={handleScroll}
-                    className="flex md:grid md:grid-cols-3 gap-8 overflow-x-auto md:overflow-visible snap-x snap-mandatory pb-8 md:pb-0 scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0"
+                    className={classes.scrollContainer}
                 >
                     {steps.map((step, index) => (
                         <div
                             key={index}
-                            className="block min-w-[85vw] md:min-w-0 snap-center"
+                            className={classes.cardWrapper}
                             onMouseEnter={() => setHoveredIndex(index)}
                             onMouseLeave={() => setHoveredIndex(null)}
+                            onClick={() => {
+                                // For mobile tap to flip
+                                setHoveredIndex(hoveredIndex === index ? null : index);
+                            }}
                         >
-                            <div className="group h-[500px] md:h-[600px] perspective-1000 cursor-pointer w-full">
+                            <div className={`${classes.cardInner} group`}>
                                 <motion.div
-                                    className="relative w-full h-full transition-all duration-700 preserve-3d"
+                                    className={classes.cardFlipper}
                                     style={{
                                         transform: hoveredIndex === index ? "rotateY(180deg)" : "rotateY(0deg)",
                                     }}
                                 >
                                     {/* Front Side */}
-                                    <div className="absolute inset-0 backface-hidden rounded-3xl overflow-hidden shadow-lg bg-gray-50">
+                                    <div className={classes.cardFront}>
                                         <img
                                             src={step.image}
                                             alt={step.title}
-                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                            className={`${classes.cardImage} group-hover:scale-110`}
                                         />
-                                        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors" />
+                                        <div className={`${classes.overlay} group-hover:bg-black/40`} />
 
                                         {/* Large Number Overlay */}
                                         <span
-                                            className="absolute top-4 right-6 text-8xl font-display font-bold opacity-50 z-10"
-                                            style={{ color: "white" }}
+                                            className={classes.stepIdLarge}
                                         >
                                             {step.id}
                                         </span>
 
-                                        <div className="absolute bottom-8 left-8">
-                                            <h3 className="text-5xl font-hand font-bold text-white tracking-tight">
+                                        <div className={classes.frontTitleWrapper}>
+                                            <h3 className={classes.frontTitle}>
                                                 {step.title}
                                             </h3>
                                         </div>
@@ -101,23 +113,23 @@ const HowItWorks = () => {
 
                                     {/* Back Side */}
                                     <div
-                                        className="absolute inset-0 backface-hidden rotate-y-180 rounded-3xl p-12 flex flex-col justify-center items-center text-center bg-white border-2"
+                                        className={classes.cardBack}
                                         style={{ borderColor: step.color }}
                                     >
                                         <span
-                                            className="text-6xl font-display font-bold mb-8 opacity-20"
+                                            className={classes.backStepId}
                                             style={{ color: step.color }}
                                         >
                                             {step.id}
                                         </span>
 
                                         <h3
-                                            className="text-5xl font-hand font-bold mb-8"
+                                            className={classes.backTitle}
                                             style={{ color: step.color }}
                                         >
                                             {step.title}
                                         </h3>
-                                        <p className="text-xl text-[#464243] leading-relaxed font-light">
+                                        <p className={classes.backDescription}>
                                             {step.description}
                                         </p>
                                     </div>
@@ -128,12 +140,15 @@ const HowItWorks = () => {
                 </div>
 
                 {/* Mobile Scroll Indicator */}
-                <div className="flex md:hidden justify-center gap-2 mt-4">
+                <div className={classes.mobileIndicators}>
                     {steps.map((_, index) => (
                         <div
                             key={index}
-                            className={`h-2 rounded-full transition-all duration-300 ${activeIndex === index ? 'w-8 bg-black' : 'w-2 bg-gray-300'
-                                }`}
+                            className={classes.indicatorDot}
+                            style={{
+                                width: activeIndex === index ? '32px' : '8px',
+                                backgroundColor: activeIndex === index ? 'black' : '#e0e0e0'
+                            }}
                         />
                     ))}
                 </div>

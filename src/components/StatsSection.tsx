@@ -1,10 +1,11 @@
 'use client';
 
-import React from 'react';
-import { motion, useInView } from 'framer-motion';
-import { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import { useInView } from 'framer-motion';
+import { useStyles } from './StatsSection.styles';
 
 const StatItem = ({ value, label, suffix = "", color }: any) => {
+    const { classes } = useStyles();
     const ref = useRef<HTMLDivElement>(null);
     const isInView = useInView(ref, { once: true, margin: "-100px" });
     const [count, setCount] = useState(0);
@@ -32,14 +33,14 @@ const StatItem = ({ value, label, suffix = "", color }: any) => {
     }, [isInView, value]);
 
     return (
-        <div ref={ref} className="flex flex-col items-center text-center">
+        <div ref={ref} className={classes.statItem}>
             <div
-                className="text-5xl md:text-7xl font-display font-bold mb-2 md:mb-4 tracking-tighter"
+                className={classes.statValue}
                 style={{ color: color }}
             >
                 {count.toLocaleString()}{suffix}
             </div>
-            <div className="text-2xl md:text-3xl font-hand font-bold text-gray-600 whitespace-pre-line leading-none">
+            <div className={classes.statLabel}>
                 {label}
             </div>
         </div>
@@ -47,6 +48,7 @@ const StatItem = ({ value, label, suffix = "", color }: any) => {
 };
 
 const StatsSection = () => {
+    const { classes } = useStyles();
     const stats = [
         { label: "Active\nMembers", value: 500, suffix: "+", color: "#EBE563" }, // Creator Yellow
         { label: "Treasury\nValue", value: 10, suffix: "M", color: "#2992A3" }, // Investor Teal
@@ -55,22 +57,22 @@ const StatsSection = () => {
     ];
 
     return (
-        <section className="py-20 md:py-32 bg-gray-50 border-t border-gray-100">
-            <div className="container mx-auto px-4 md:px-8">
-                <div className="flex flex-col md:flex-row justify-between items-center gap-12 md:gap-8">
+        <section className={classes.section}>
+            <div className={classes.container}>
+                <div className={classes.wrapper}>
                     {/* Title */}
-                    <div className="w-full md:w-1/3 text-center md:text-left">
-                        <h2 className="text-4xl md:text-5xl font-display font-black mb-6 leading-tight text-black">
+                    <div className={classes.textColumn}>
+                        <h2 className={classes.title}>
                             Unstoppable <br />
-                            <span className="font-hand text-5xl md:text-6xl text-[#E2622B]">Momentum.</span>
+                            <span className={classes.highlight}>Momentum.</span>
                         </h2>
-                        <p className="text-xl md:text-2xl text-gray-500 leading-relaxed font-light">
+                        <p className={classes.description}>
                             Our community is growing fast. Join the movement redefining wealth and ownership.
                         </p>
                     </div>
 
                     {/* Stats Grid */}
-                    <div className="w-full md:w-2/3 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+                    <div className={classes.grid}>
                         {stats.map((stat, index) => (
                             <StatItem key={index} {...stat} />
                         ))}
