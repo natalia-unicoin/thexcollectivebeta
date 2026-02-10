@@ -13,7 +13,7 @@ export const useStyles = makeStyles()((theme) => ({
         }
     },
     container: {
-        maxWidth: '1600px',
+        maxWidth: '1280px',
         marginLeft: 'auto',
         marginRight: 'auto',
         paddingLeft: theme.spacing(2),
@@ -23,8 +23,8 @@ export const useStyles = makeStyles()((theme) => ({
             paddingRight: theme.spacing(4),
         },
         [theme.breakpoints.up('lg')]: {
-            paddingLeft: '40px',
-            paddingRight: '40px',
+            paddingLeft: '60px',
+            paddingRight: '60px',
         }
     },
     title: {
@@ -55,13 +55,11 @@ export const useStyles = makeStyles()((theme) => ({
     // Grid/Scroll Container
     scrollContainer: {
         display: 'flex',
-        flexWrap: 'nowrap',
         gap: theme.spacing(2),
         overflowX: 'auto',
         scrollSnapType: 'x mandatory',
         paddingBottom: theme.spacing(4),
         marginLeft: theme.spacing(-2),
-        marginRight: theme.spacing(-2),
         paddingLeft: theme.spacing(2),
         paddingRight: theme.spacing(2),
         scrollbarWidth: 'none',
@@ -69,36 +67,36 @@ export const useStyles = makeStyles()((theme) => ({
             display: 'none',
         },
         [theme.breakpoints.up('md')]: {
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
             gap: theme.spacing(3),
+            overflow: 'visible',
+            scrollSnapType: 'none',
             paddingBottom: 0,
-            marginLeft: theme.spacing(-4),
-            marginRight: theme.spacing(-4),
-            paddingLeft: theme.spacing(4),
-            paddingRight: theme.spacing(4),
+            margin: 0,
+            padding: 0,
         },
         [theme.breakpoints.up('lg')]: {
+            gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
             gap: theme.spacing(4),
-            marginLeft: '-40px',
-            marginRight: '-40px',
-            paddingLeft: '40px',
-            paddingRight: '40px',
         }
     },
     cardWrapper: {
         display: 'block',
-        minWidth: '400px',
-        flexShrink: 0,
-        scrollSnapAlign: 'start',
+        minWidth: '85vw',
+        scrollSnapAlign: 'center',
+        [theme.breakpoints.up('md')]: {
+            minWidth: 0,
+        }
     },
-
     cardInner: {
         position: 'relative',
-        height: '480px',
+        height: '500px',
         width: '100%',
         cursor: 'pointer',
         perspective: '1000px',
         [theme.breakpoints.up('md')]: {
-            height: '650px',
+            height: '600px',
         }
     },
     cardFlipper: {
@@ -151,14 +149,15 @@ export const useStyles = makeStyles()((theme) => ({
         left: theme.spacing(4), // left-8
     },
     frontTitle: {
-        fontSize: '2.5rem',
-        fontFamily: theme.typography.subtitle1.fontFamily,
+        fontSize: '3.75rem',
+        fontFamily: "'Caveat', cursive",
         fontWeight: 700,
         color: theme.palette.common.white,
-        letterSpacing: '-0.025em',
-        lineHeight: 1.1,
+        letterSpacing: 'normal',
+        lineHeight: 1,
+        textShadow: '0 4px 20px rgba(0,0,0,0.3)',
         [theme.breakpoints.up('md')]: {
-            fontSize: '3.5rem',
+            fontSize: '3.75rem',
         }
     },
     cardBack: {
